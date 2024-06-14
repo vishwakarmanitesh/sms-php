@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Bootstrap Example</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="crossorigin="anonymous"></script>
+        <style>
+            body{
+                background-color: slateblue;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6 mt-5">
+                    <form class="msg-form">
+                        <div class="form-group">
+                            <label for="mobile">Mobile No</label>
+                            <input type="mobile" name="mobile" class="mobile form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Message</label>
+                            <input type="text" name="message" class="msg form-control">
+                        </div>
+                        <button type="submit" class="btn smb-btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function(){
+                $(".msg-form").submit(function(e){
+                    e.preventDefault();
+                    $.ajax({
+                        type : "POST",
+                        url : "send_sms.php",
+                        data : {
+                        mobile : $(".mobile").val(),
+                        msg : $(".msg").val()
+                        },
+                        beforeSend : function(){
+                          $(".smb-btn").html("Sending...");
+                        },
+                        success : function(response){
+                            alert(response);
+                            console.log(response);
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
